@@ -1,0 +1,60 @@
+<div class="chat">
+  <div id="sidebar" class="chat__sidebar">
+    <div>
+      <div>
+        <h2 class="room-title">
+          <img alt="" src="./img/room.png" width="30px" height="30px" />
+          {{room}}
+        </h2>
+        <h3 class="list-title">
+          <img alt="" src="./img/users.jpg" width="30px" height="30px" /> Users
+        </h3>
+        <ol class="users">
+
+          <li class="user" *ngFor="let user of users">{{user.username}}</li>
+        </ol>
+      </div>
+    </div>
+
+  </div>
+  <div class="chat__main">
+    <h2 class="toolbar">Chat App</h2>
+    <div id="messages" class="chat__messages">
+
+      <div id="message-template" *ngFor="let message of messages">
+
+        <div style="display:flex" *ngIf="message.isMessage">
+          <div class="{{message.userClass}}" title="{{message.user}}">
+            {{message.userInitials}}
+          </div>
+          <div class="{{message.divClass}}">
+            <p class="message-content">{{message.message}}</p>
+            <div class="message-timestamp-left">{{message.createdAt}}</div>
+          </div>
+
+        </div>
+        <div style="display:flex" *ngIf="message.isLocation">
+          <div style="display:flex">
+            <div class="{{message.userClass}}" title="{{message.user}}">
+              {{message.userInitials}}
+            </div>
+            <div class="{{message.divClass}}">
+              <p class="message-content"> <img alt="" src="./img/location.png" width="15px" height="15px" />
+                <a target="_blank" class="location" href="{{message.location}}">My current location</a>
+              </p>
+              <div class="message-timestamp-left">{{message.createdAt}}</div>
+            </div>
+          </div>
+        </div>
+      </div>
+
+    </div>
+    <div class="compose">
+      <form id="message-form">
+        <input name="message" id="message"  [formControl]="chat" required autocomplete="off" />
+        <button id="sendMessage">Send</button>
+      </form>
+      <button id="sendLocation" (click)="sendLocation()">Send Location</button>
+    </div>
+  </div>
+</div>
